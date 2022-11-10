@@ -59,5 +59,5 @@ class BruteForceSNPLogRegression(SNPLogRegression):
             X_plus_si = np.append(self.S[:,i].reshape(self.n, 1), self.X, axis=1)
             model = sm.GLM(self.y, X_plus_si, family=sm.families.Binomial()).fit()
             self.coef[i] = model.params[0]
-            self.std_err[i] = model.err[0]
+            # self.std_err[i] = model.err[0]
             self.pvalues[i] = model.pvalues[0]
