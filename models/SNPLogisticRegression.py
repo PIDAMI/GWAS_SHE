@@ -49,7 +49,7 @@ class SemiParallelSNPLogRegression(SNPLogRegression):
         Str2 = np.sum(w * S_star**2, axis = 0) # m size vector of sums(w_i * s_i^2)
         self.coef = np.sum(working_var_trans * w * S_star, axis=0) / Str2 # m size vect of sums(wi zi si) / str2, denoted as betta
         self.std_err = Str2**-0.5 
-        self.pval = 2 * stat.norm.cdf(-np.abs(self.coef / self.std_err))
+        self.pvalues = 2 * stat.norm.cdf(-np.abs(self.coef / self.std_err))
 
 
 class BruteForceSNPLogRegression(SNPLogRegression):
@@ -59,5 +59,5 @@ class BruteForceSNPLogRegression(SNPLogRegression):
             X_plus_si = np.append(self.S[:,i].reshape(self.n, 1), self.X, axis=1)
             model = sm.GLM(self.y, X_plus_si, family=sm.families.Binomial()).fit()
             self.coef[i] = model.params[0]
-            # self.std_err[i] = model.err[0]
             self.pvalues[i] = model.pvalues[0]
+            #TODO: maybe add standard errors for coef
