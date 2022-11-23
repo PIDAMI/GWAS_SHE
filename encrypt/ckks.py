@@ -89,8 +89,8 @@ class CKKS():
         + self.he.encrypt(np.array([1.73496 / 8]*size, dtype=np.float64)) * pow_1  
         + self.he.encrypt(np.array([4.19407 / 8**3]*size, dtype=np.float64)) * pow_3
         - self.he.encrypt(np.array([5.43402 / 8**5]*size, dtype=np.float64)) * pow_5
-        + self.he.encrypt(np.array([2.50739 / 8**5]*size, dtype=np.float64)) * pow_7
+        + self.he.encrypt(np.array([2.50739 / 8**7]*size, dtype=np.float64)) * pow_7
         self.he.relinearize(res)
-        # self.he.rescale_to_next(res)
+        self.he.rescale_to_next(res)
         return res
 
