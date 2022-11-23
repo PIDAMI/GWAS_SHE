@@ -1,3 +1,5 @@
+# works with python 3.8.10 and doesnt work with python 3.9.* as pyfhel doesnt build
+# install via pypi and not from source
 asttokens==2.1.0
 backcall==0.2.0
 contourpy==1.0.6
@@ -17,7 +19,7 @@ kiwisolver==1.4.4
 matplotlib==3.6.2
 matplotlib-inline==0.1.6
 nest-asyncio==1.5.6
-numpy==1.23.4
+numpy==1.21.0
 packaging==21.3
 pandas==1.5.1
 parso==0.8.3
@@ -29,6 +31,7 @@ prompt-toolkit==3.0.31
 psutil==5.9.3
 ptyprocess==0.7.0
 pure-eval==0.2.2
+Pyfhel==3.3.1
 Pygments==2.13.0
 pyparsing==3.0.9
 python-dateutil==2.8.2
