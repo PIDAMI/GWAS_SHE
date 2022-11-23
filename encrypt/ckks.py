@@ -91,37 +91,6 @@ class CKKS():
         - self.he.encrypt(np.array([5.43402 / 8**5]*size, dtype=np.float64)) * pow_5
         + self.he.encrypt(np.array([2.50739 / 8**5]*size, dtype=np.float64)) * pow_7
         self.he.relinearize(res)
-        self.he.rescale_to_next(res)
+        # self.he.rescale_to_next(res)
         return res
-
-
-
-ckks_params = {
-    'scheme': 'CKKS',   # can also be 'ckks'
-    'n': 2**14,         # Polynomial modulus degree. For CKKS, n/2 values can be
-                        #  encoded in a single ciphertext.
-                        #  Typ. 2^D for D in [10, 16]
-    'scale': 2**30,     # All the encodings will use it for float->fixed point
-                        #  conversion: x_fix = round(x_float * scale)
-                        #  You can use this as default scale or use a different
-                        #  scale on each operation (set in HE.encryptFrac)
-    'qi_sizes': [60, 30, 30, 30, 30, 30, 60] # Number of bits of each prime in the chain.
-                        # Intermediate values should be  close to log2(scale)
-                        # for each operation, to have small rounding errors.
-}
-
-ckks = CKKS(ckks_params, 100, 100, 3)
-x = [np.array([1,2,3],dtype=np.float64),np.array([4,5,6],dtype=np.float64)]
-y = [np.array([4,5],dtype=np.float64),np.array([7,8],dtype=np.float64),np.array([10,11],dtype=np.float64)]
-x = np.array(x).T
-y = np.array(y).T
-xct = list()
-yct = list()
-for i in range(3):
-    xct.append(ckks.he.encrypt(x[i]))
-for i in range(2):
-    yct.append(ckks.he.encrypt(y[i]))
-
-ckks.sigmoid(xct[0],2)
-
 
