@@ -33,7 +33,7 @@ class CKKS():
 
     # matrices are represented as lists of vectors as CKKS cant handle matrices as they are
     def mat_vec_mult(self,matr,vec,size):
-        column_repr = self.replicate(self.mod,vec,size)
+        column_repr = self.replicate(vec,size)
         res = matr[0] * column_repr[0]
         self.he.relinearize(res)
         for i in range(1,size):
@@ -73,23 +73,23 @@ class CKKS():
         pow_3 = pow_1 * pow_2
         self.he.relinearize(pow_3)
         self.he.rescale_to_next(pow_3)
-        pow_4 = pow_2 * pow_2
-        self.he.relinearize(pow_4)
-        self.he.rescale_to_next(pow_4)
-        pow_5 = pow_4 * pow_1
-        self.he.relinearize(pow_5)
-        self.he.rescale_to_next(pow_5)
-        pow_6 = pow_4 * pow_2
-        self.he.relinearize(pow_6)
-        self.he.rescale_to_next(pow_6)
-        pow_7 = pow_6 * pow_1
-        self.he.relinearize(pow_7)
-        self.he.rescale_to_next(pow_7)
+        # pow_4 = pow_2 * pow_2
+        # self.he.relinearize(pow_4)
+        # self.he.rescale_to_next(pow_4)
+        # pow_5 = pow_4 * pow_1
+        # self.he.relinearize(pow_5)
+        # self.he.rescale_to_next(pow_5)
+        # pow_6 = pow_4 * pow_2
+        # self.he.relinearize(pow_6)
+        # self.he.rescale_to_next(pow_6)
+        # pow_7 = pow_6 * pow_1
+        # self.he.relinearize(pow_7)
+        # self.he.rescale_to_next(pow_7)
         res = const_term 
         + self.he.encrypt(np.array([1.73496 / 8]*size, dtype=np.float64)) * pow_1  
         + self.he.encrypt(np.array([4.19407 / 8**3]*size, dtype=np.float64)) * pow_3
-        - self.he.encrypt(np.array([5.43402 / 8**5]*size, dtype=np.float64)) * pow_5
-        + self.he.encrypt(np.array([2.50739 / 8**7]*size, dtype=np.float64)) * pow_7
+        # - self.he.encrypt(np.array([5.43402 / 8**5]*size, dtype=np.float64)) * pow_5
+        # + self.he.encrypt(np.array([2.50739 / 8**7]*size, dtype=np.float64)) * pow_7
         self.he.relinearize(res)
         self.he.rescale_to_next(res)
         return res
