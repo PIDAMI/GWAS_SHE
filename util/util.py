@@ -22,12 +22,14 @@ def bench_model(model, num_runs:int, n:int, m:int, k:int) -> dict:
     
     return results
 
-
-def gen_random_data(seed: int, n: int, m: int, k: int) -> tuple():
+# with_bias_column checks if covariates matrix should include column of ones corresponding to bias term
+def gen_random_data(seed: int, n: int, m: int, k: int, with_bias_column = True) -> tuple():
     np.random.seed(seed)
     S = np.random.normal(0, 1, size=(n, m)).astype(np.float64) # SNP matrix
-    X0 = np.random.uniform(0, 1, size=(n, k)) # covariates matrix 
-    ones = np.zeros(n) + 1
-    X = np.append(ones.reshape(n, 1), X0, axis=1).astype(np.float64) # covariates matrix concatenated with const term in regression
+    X = np.random.uniform(0, 1, size=(n, k)) # covariates matrix 
+    if with_bias_column:
+        ones = np.ones(n)
+        X = np.append(ones.reshape(n, 1), X, axis=1).astype(np.float64) # covariates matrix concatenated with const term in regression
+
     y = np.random.binomial(1, 0.5, n).reshape(n,1).astype(np.float64)
     return (y,S,X)
